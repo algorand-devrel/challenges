@@ -1,0 +1,15 @@
+{
+  "name": "algorand-challenges",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "payment":"node PaymentTransaction/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "algosdk": "^1.15.0"
+  }
+}
