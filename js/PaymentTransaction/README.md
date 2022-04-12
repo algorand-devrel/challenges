@@ -18,4 +18,10 @@ Specifically in the documentation linked above you'll want to familiarize yourse
 
 You'll also want to review the SDK docs for the specific language you're comfortable with
 
-#todo links for sdk pages
+
+# The Challenge
+
+In this challenge you need to:
+* Get the suggested transaction parameters from an API server
+* Construct a Payment Transaction that represents a payment from you, to you, for 1 Algo
+* Sign the transaction with the secret key 
