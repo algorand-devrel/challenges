@@ -18,7 +18,7 @@ export default function verifyTransaction(client, txId) {
     const result = algosdk.waitForConfirmation(client, txId, 3);
 
     for(const check in verifyChecks){
-        if(!verifyChecks[check]) throw `Failed to verify: ${check}`
+        if(!verifyChecks[check](result)) throw `Failed to verify: ${check}`
     }
 
     return true
