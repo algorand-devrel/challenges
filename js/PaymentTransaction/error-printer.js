@@ -14,11 +14,16 @@ const errorMapper = {
 
 
 
-export default function printError(error) {
+function printError(error) {
     for(const [k,v] of Object.entries(errorMapper)){
         if(v['re'].exec(error)){
             console.error(v['message'])
             console.error(v['docs'])
+            return
         }
     }
+
+    console.log("Unmapped error: "+error)
 }
+
+module.exports = printError

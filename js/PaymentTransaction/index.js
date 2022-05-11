@@ -1,6 +1,6 @@
 const algosdk = require("algosdk");
-const verify = require("verify");
-const { default: printError } = require("./error-printer");
+const verify = require("./verify");
+const printError = require("./error-printer");
 
 const token  = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const server = "http://localhost";
@@ -8,6 +8,7 @@ const port   = 4001;
 const client = new algosdk.Algodv2(token, server, port);
 
 const mn = "diesel minimum hood expire parade other market hotel spawn category rescue keen false coin success draft siren person denial student example rural better absorb tunnel";
+const txids = []
 
 (async function(){
 
@@ -33,6 +34,7 @@ const mn = "diesel minimum hood expire parade other market hotel spawn category 
 
         // Send the transaction, returns the transaction id for the first transaction in the group
         const {txId} = await client.sendRawTransaction(signed).do()
+        txids.push(txId)
 
         // Wait for the transaction to be confirmed.
         const result = await algosdk.waitForConfirmation(client, txId, 2)
@@ -45,7 +47,7 @@ const mn = "diesel minimum hood expire parade other market hotel spawn category 
     }
 
     try {
-        verify([txId])
+        verify(txids)
     }catch(error){
         console.error(error)
     }
