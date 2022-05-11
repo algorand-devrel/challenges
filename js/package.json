@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "payment":"node PaymentTransaction/index.js",
-    "payment-complete":"node PaymentTransaction/complete.js"
+    "payment": "node PaymentTransaction/index.js",
+    "payment-complete": "node PaymentTransaction/complete.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "algosdk": "^1.15.0"
+    "algosdk": "^1.15.0",
+    "axios": "^0.27.2"
   }
 }

@@ -1,5 +1,5 @@
 const algosdk = require("algosdk");
-const verify = require("./verify");
+const validate = require("./validate");
 const printError = require("./error-printer");
 
 const token  = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -47,7 +47,7 @@ const txids = []
     }
 
     try {
-        verify(txids)
+        validate(txids)
     }catch(error){
         console.error(error)
     }
