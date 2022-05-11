@@ -47,7 +47,7 @@ const txids = []
     }
 
     try {
-        validate(txids)
+        await validate(txids)
     }catch(error){
         console.error(error)
     }
