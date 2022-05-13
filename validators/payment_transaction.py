@@ -2,10 +2,11 @@ from typing import List
 from algosdk.v2client.algod import AlgodClient 
 from algosdk import encoding 
 from algosdk.constants import PAYMENT_TXN
+import base64
 
 
-token = ""
-host = ""
+token = "a"*64
+host = "http://localhost:4001"
 
 def get_client():
     return AlgodClient(token, host)
@@ -20,13 +21,23 @@ def validate_challenge_transaction_specialist(transaction_ids: List[str], challe
     txns = get_txns(transaction_ids)
 
     assert len(txns) == 1, "Expected a single transaction"
-    assert txn[0]['confirmed-round'] > 0, "Expected confirmed transaction"
+    assert txns[0]['confirmed-round'] > 0, "Expected confirmed transaction"
 
-    txn = encoding.future_msgpack_decode(txns[0]["txn"])
+    base_txn = txns[0]["txn"]["txn"]
+    base_txn['rcv'] = encoding.decode_address(base_txn['rcv'])
+    base_txn['snd'] = encoding.decode_address(base_txn['snd'])
+    base_txn['gh'] = base64.b64decode(base_txn['gh'])
+    #TODO: this should be included in the SDK itself
+
+    txn = encoding.future_msgpack_decode(base_txn)
 
     assert txn.type == PAYMENT_TXN, "Expected a payment transaction"
     assert txn.sender == challenge_account_id, "Expected sender to be you"
     assert txn.receiver == challenge_account_id, "Expected receiver to be you"
-    assert txn.amount == 1e6, "Expected amount to be 1A"
+    assert txn.amt == 1e6, "Expected amount to be 1A"
 
     return True
+
+
+if __name__ == "__main__":
+    validate_challenge_transaction_specialist(["3HI2XQVN4UQD5LZCPAJLY25T4YMGDZHW62MDFOXH7I5ZUPWGU2NQ"], "E4VCHISDQPLIZWMALIGNPK2B2TERPDMR64MZJXE3UL75MUDXZMADX5OWXM")
