@@ -17,9 +17,7 @@ def get_txns(txns: List[str]):
     return txn_info
 
 # Transaction Specialist
-def validate_challenge_transaction_specialist(transaction_ids: List[str], challenge_account_id: str) -> bool:
-    txns = get_txns(transaction_ids)
-
+def validate_challenge_transaction_specialist(txns, challenge_account_id: str) -> bool:
     assert len(txns) == 1, "Expected a single transaction"
     assert txns[0]['confirmed-round'] > 0, "Expected confirmed transaction"
 
@@ -40,4 +38,5 @@ def validate_challenge_transaction_specialist(transaction_ids: List[str], challe
 
 
 if __name__ == "__main__":
-    validate_challenge_transaction_specialist(["3HI2XQVN4UQD5LZCPAJLY25T4YMGDZHW62MDFOXH7I5ZUPWGU2NQ"], "E4VCHISDQPLIZWMALIGNPK2B2TERPDMR64MZJXE3UL75MUDXZMADX5OWXM")
+    txns = get_txns(["3HI2XQVN4UQD5LZCPAJLY25T4YMGDZHW62MDFOXH7I5ZUPWGU2NQ"])
+    validate_challenge_transaction_specialist(txns, "E4VCHISDQPLIZWMALIGNPK2B2TERPDMR64MZJXE3UL75MUDXZMADX5OWXM")
