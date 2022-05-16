@@ -1,58 +1,69 @@
 const algosdk = require("algosdk");
 const validate = require("./validate");
 const printError = require("./error-printer");
+const { encodeAddress } = require("algosdk");
 
-const token  = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+const token =
+  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const server = "http://localhost";
-const port   = 4001;
+const port = 4001;
 const client = new algosdk.Algodv2(token, server, port);
-
-const mn = "diesel minimum hood expire parade other market hotel spawn category rescue keen false coin success draft siren person denial student example rural better absorb tunnel";
-
 const txids = [];
 
+const secretKey =
+  "sYgLa2BSnHCYG1tlugubFuoLYjGoPoHiM71JkONCn3zWYyP45GoVqoNmZ4b31uCqML4FzQ0uSEg4PXGhCNW9TA==";
 
-(async function(){
-    try {
-        // Initialize the account with the provided mnemonic
-        const acct = algosdk.mnemonicToSecretKey(mn)
 
-        // Get the suggested parameters from the Algod server. These include current fee levels and suggested first/last rounds.
-        const sp = await client.getTransactionParams().do();
+(async function () {
+  try {
+    // Decode the secretKey into a Uint8Array from base 64
+    // This will produce an array of length 64
+    const secret = new Uint8Array(Buffer.from(secretKey, "base64"));
+    const acct = {
+      // The public key is the secret[32:], or the last 32 bytes
+      // We encode it to the address which is easier to read and includes a checksum
+      addr: encodeAddress(secret.slice(32)),
+      // We need not do anything with the secret
+      sk: secret,
+    };
 
-        // Create a payment transaction from you to you using the `acct` variable defined above
-        const ptxn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-            from: acct.addr,
-            to: acct.addr,
-            amount: 1e6,
-            suggestedParams: sp
-        })
+    // Get the suggested parameters from the Algod server. 
+    // These include current fee levels and suggested first/last rounds.
+    const sp = await client.getTransactionParams().do();
 
-        // Sign the transaction. This should return a Uint8Array representing the bytes to be sent to the network
-        const signed = ptxn.signTxn(acct.sk); 
+    // Create a payment transaction from you to you using the `acct` variable defined above
+    const ptxn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+      from: acct.addr,
+      to: acct.addr,
+      amount: 1e6,
+      suggestedParams: sp,
+    });
 
-        // Send the transaction, returns the transaction id for the first transaction in the group
-        const {txId} = await client.sendRawTransaction(signed).do()
-        txids.push(txId)
+    // Sign the transaction. This should return a 
+    // Uint8Array representing the bytes to be sent to the network
+    const signed = ptxn.signTxn(acct.sk);
 
-        // Wait for the transaction to be confirmed.
-        const result = await algosdk.waitForConfirmation(client, txId, 2)
+    // Send the transaction, returns the transaction id for 
+    // the first transaction in the group
+    const { txId } = await client.sendRawTransaction(signed).do();
+    txids.push(txId);
 
-        // Log out the confirmed round
-        console.log("Confirmed round: "+result['confirmed-round'])
+    // Wait for the transaction to be confirmed.
+    const result = await algosdk.waitForConfirmation(client, txId, 2);
 
-    }catch(error){
-        printError(error)
-        return
-    }
+    // Log out the confirmed round
+    console.log("Confirmed round: " + result["confirmed-round"]);
+  } catch (error) {
+    printError(error);
+    return;
+  }
 
-    console.log("Verifying challenge work...")
-    try {
-        await validate(txids)
-    }catch(error){
-        console.error(error)
-        return
-    }
-    console.log("Challenge completed sucessfully!")
-})()
-
+  console.log("Verifying challenge work...");
+  try {
+    await validate(txids);
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+  console.log("Challenge completed sucessfully!");
+})();
