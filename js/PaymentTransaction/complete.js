@@ -46,11 +46,13 @@ const txids = [];
         return
     }
 
+    console.log("Verifying challenge work...")
     try {
         await validate(txids)
     }catch(error){
         console.error(error)
         return
     }
-
+    console.log("Challenge completed sucessfully!")
 })()
+
