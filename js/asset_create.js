@@ -61,6 +61,7 @@ const acct = {
 
     // Log out the confirmed round
     console.log("Confirmed round: " + result["confirmed-round"]);
+    console.log("Created asset id: " + result["asset-index"])
   } catch (error) {
     printError(error);
     return;
