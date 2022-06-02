@@ -9,6 +9,27 @@ const errorMapper = {
             "https://developer.algorand.org/docs/get-details/transactions/#fees",
             "https://developer.algorand.org/docs/get-details/accounts/#minimum-balance"
         ]
+    },
+    "asset overspend":{
+        "re":/underflow on subtracting/,
+        "message":"It looks like you've tried to submit a transaction where an account did not have enough of an asset to transfer.",
+        "docs":[
+            // asset transfer
+        ]
+    },
+    "opt in":{
+        "re":/receiver error: must optin,/,
+        "message":"It looks like you've tried to submit a transaction where the receiver has not yet opted in to the asset",
+        "docs":[
+            // asset opt in
+        ]
+    },
+    "wrong signer":{
+        "re": /should have been authorized by/,
+        "message":"It looks like you've tried to submit a transaction where the actual signer is different from the expected signer",
+        "docs":[
+            // signing, auth addr, rekey
+        ]
     }
 }
 

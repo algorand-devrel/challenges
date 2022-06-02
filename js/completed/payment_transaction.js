@@ -1,7 +1,9 @@
 const algosdk = require("algosdk");
-const validate = require("./validate");
-const printError = require("./error-printer");
+const validate = require("../validate");
+const printError = require("../error-printer");
 const { encodeAddress } = require("algosdk");
+
+const challenge_id = "3462886918586161821"
 
 const token =
   "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -60,7 +62,7 @@ const secretKey =
 
   console.log("Verifying challenge work...");
   try {
-    await validate(txids);
+    await validate(challenge_id, txids);
   } catch (error) {
     console.error(error);
     return;

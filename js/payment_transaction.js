@@ -2,6 +2,8 @@ const algosdk = require("algosdk");
 const validate = require("./validate");
 const printError = require("./error-printer");
 
+const challenge_id = "3462886918586161821"
+
 const token =
   "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const server = "http://localhost";
@@ -50,7 +52,7 @@ const txids = [](async function () {
     printError(error);
   }
 
-  if (await validate(txids)) {
+  if (await validate(challenge_id, txids)) {
     console.log("Success!");
   } else {
     console.error(

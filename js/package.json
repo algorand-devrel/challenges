@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "payment": "node PaymentTransaction/index.js",
-    "payment-complete": "node PaymentTransaction/complete.js"
+    "payment": "node completed/payment_transaction.js"
   },
   "author": "",
   "license": "ISC",
