@@ -14,21 +14,22 @@ client = AlgodClient(token, server)
 txids = []
 
 # TODO: Paste your secret key here
-secretKey = ""
+secretKey = "sYgLa2BSnHCYG1tlugubFuoLYjGoPoHiM71JkONCn3zWYyP45GoVqoNmZ4b31uCqML4FzQ0uSEg4PXGhCNW9TA=="
 
 # Get the address from the secret key
 addr = account.address_from_private_key(secretKey)
 
-# TODO: Get the suggested parameters from the Algod server. 
-sp = None 
-
-# TODO: Create a payment transaction from you to you for 1 Algo
-# hint: From and To should be your `addr` and 1 Algo is 1m microAlgos
-ptxn = transaction.PaymentTxn(None, sp, None, None)
+# Get the suggested parameters from the Algod server. 
+# These include current fee levels and suggested first/last rounds.
+sp = client.suggested_params()
 
 
-# TODO: Sign the transaction. 
-signed = None 
+# Create a payment transaction from you to you using the `acct` variable defined above
+ptxn = transaction.PaymentTxn(addr, sp, addr, int(1e6))
+
+# Sign the transaction. 
+# returns a SignedTxn object containing the bytes to be sent to the network
+signed = ptxn.sign(secretKey)
 
 # Send the transaction, returns the transaction id for 
 # the first transaction in the group
