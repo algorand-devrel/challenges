@@ -1,6 +1,8 @@
 import requests
 
-validate_path = lambda challenge_id: f"https://staging.new-dev-site.algorand.org/api/challenges/{challenge_id}/verify/"
+validate_path = (
+    lambda challenge_id: f"https://staging.new-dev-site.algorand.org/api/challenges/{challenge_id}/verify/"
+)
 
 
 def validate(challenge_id, txids):
