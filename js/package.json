@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "payment": "node completed/payment_transaction.js",
-    "asset": "node completed/asset_create.js"
+    "asset": "node completed/asset_create.js",
+    "group": "node completed/atomic_group.js"
   },
   "author": "",
   "license": "ISC",

@@ -9,12 +9,17 @@ Initial Tasks:
 
 - [ ] Create an ASA (NFT) (Maybe also have them opt-in and transfer)
 
-    - [ ] Python
-    - [ ] JS
+    - [x] Python
+    - [x] JS
     - [ ] Go
     - [ ] Java
 
 - [ ] Create a group txn (Payment to address A and payment to address B)
+
+    - [x] Python
+    - [x] JS
+    - [ ] Go
+    - [ ] Java
 
 - [ ] Create a simple smart contract (And maybe communicate with it, send a txn, etc)
 
