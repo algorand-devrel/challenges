@@ -9,7 +9,7 @@ import base64
 #host = "http://localhost:4001"
 
 token = ""
-host = "https://testnet-api.algonode.cloud";
+host = "https://testnet-api.algonode.cloud"
 
 
 
@@ -40,7 +40,7 @@ def validate_challenge_asset_create(txns: List[Dict], challenge_account_id: str)
 
     txn = encoding.future_msgpack_decode(base_txn)
 
-    assert txn.type == ASSETCONFIG_TXN, "Expected a payment transaction"
+    assert txn.type == ASSETCONFIG_TXN, "Expected an asset config transaction"
 
     assert txn.sender == challenge_account_id, "Expected sender to be you"
     assert txn.clawback == challenge_account_id, "Expected clawback to be you"

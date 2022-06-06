@@ -4,7 +4,7 @@ const printError = require("../error-printer");
 const { encodeAddress, AtomicTransactionComposer } = require("algosdk");
 
 const challenge_id = "TBD"
-const fee_sink = "GD64YIY3TWGDMCNPP553DZPPR6LDUSFQOIJVFDPPXWEG3FVOJCCDBBHU5A"
+const faucet_addr = "GD64YIY3TWGDMCNPP553DZPPR6LDUSFQOIJVFDPPXWEG3FVOJCCDBBHU5A"
 
 const token = "";
 const server = "https://testnet-api.algonode.cloud";
@@ -44,7 +44,7 @@ const acct = {
 
     const txn1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
       from: acct.addr, 
-      to: fee_sink,
+      to: faucet_addr,
       amount: 1e6,
       suggestedParams: sp,
     });
@@ -52,7 +52,7 @@ const acct = {
 
     const txn2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
       from: acct.addr,
-      to: fee_sink,
+      to: faucet_addr,
       amount: 1e5,
       suggestedParams: sp,
     });
