@@ -5,6 +5,7 @@ const { encodeAddress, AtomicTransactionComposer } = require("algosdk");
 
 const challenge_id = "TBD"
 const faucet_addr = "GD64YIY3TWGDMCNPP553DZPPR6LDUSFQOIJVFDPPXWEG3FVOJCCDBBHU5A"
+const usdc_asa_id = 10458941
 
 const token = "";
 const server = "https://testnet-api.algonode.cloud";
@@ -42,7 +43,7 @@ const acct = {
     // These include current fee levels and suggested first/last rounds.
     const sp = await client.getTransactionParams().do();
 
-    // TODO: what transactions should we include here? right now we're just pushing a couple pays to the faucet addr
+    // Send 1Algo to the faucet address
     const txn1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
       from: acct.addr, 
       to: faucet_addr,
@@ -51,10 +52,12 @@ const acct = {
     });
     atc.addTransaction({ txn: txn1, signer: signer })
 
-    const txn2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+    // Opt into `usdc_asa_id`
+    const txn2 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
       from: acct.addr,
-      to: faucet_addr,
-      amount: 1e5,
+      to: acct.addr,
+      assetIndex: usdc_asa_id,
+      amount: 0,
       suggestedParams: sp,
     });
     atc.addTransaction({ txn: txn2, signer: signer })
