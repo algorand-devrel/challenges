@@ -60,10 +60,10 @@ def validate_challenge_group_transaction(txns: List[Dict], challenge_account_id:
     assert txn1.amount == 0, "TODO"
 
     txn2 = parse_transaction(txns[1]["txn"]["txn"])
-    assert txn1.type == PAYMENT_TXN, "Expected a payment transaction"
-    assert txn1.sender == challenge_account_id, "Expected sender to be you"
-    assert txn1.receiver == faucet_addr, "Expected sender to be fee sink"
-    assert txn1.amount == 0, "TODO"
+    assert txn2.type == PAYMENT_TXN, "Expected a payment transaction"
+    assert txn2.sender == challenge_account_id, "Expected sender to be you"
+    assert txn2.receiver == faucet_addr, "Expected sender to be fee sink"
+    assert txn2.amount == 0, "TODO"
 
     return True
 

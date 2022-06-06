@@ -42,6 +42,7 @@ const acct = {
     // These include current fee levels and suggested first/last rounds.
     const sp = await client.getTransactionParams().do();
 
+    // TODO: what transactions should we include here? right now we're just pushing a couple pays to the faucet addr
     const txn1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
       from: acct.addr, 
       to: faucet_addr,
