@@ -11,11 +11,10 @@ signer = AccountTransactionSigner(secret)
 
 approval, clear, contract = router.compile_program(version=6)
 
-# app_id, app_addr = deploy(approval, clear, addr, secret)
+app_id, app_addr = deploy(approval, clear, addr, secret)
 
-# print("Created: {} with address: {}".format(app_id, app_addr))
+print("Created: {} with address: {}".format(app_id, app_addr))
 
-app_id = 95884341
 sp = client.suggested_params()
 
 atc = AtomicTransactionComposer()
