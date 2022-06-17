@@ -31,6 +31,8 @@ const dir = "/home/ben/challenges"
 const approval = fs.readFileSync(dir+"/approval.teal");
 const clear = fs.readFileSync(dir+"/clear.teal");
 
+const accessCode = new Uint8Array(Buffer.from("not-a-secret"));
+
 (async function () {
   try {
     // Compile the teal programs to bytecode
@@ -42,21 +44,21 @@ const clear = fs.readFileSync(dir+"/clear.teal");
 
     // Get the suggested parameters from the Algod server. 
     // These include current fee levels and suggested first/last rounds.
-    const sp = await client.getTransactionParams().do();
+    const createsp = await client.getTransactionParams().do();
 
     // Construct an asset create transaction. 
     // An asset create transaction is the same as an asset config transaction
     // with its asset id set to 0
     const txn = algosdk.makeApplicationCreateTxnFromObject({
       from: acct.addr,
-      suggestedParams: sp,
       approvalProgram: approvalProgram,
       clearProgram: clearProgram,
       numGlobalByteSlices: 1,
       numLocalByteSlices: 0,
       numGlobalInts: 1,
       numLocalInts: 0,
-      appArgs: [new Uint8Array(Buffer.from("not-a-secret"))]
+      appArgs: [accessCode],
+      suggestedParams: createsp,
     });
 
     // Sign the transaction. This should return a 
@@ -65,15 +67,31 @@ const clear = fs.readFileSync(dir+"/clear.teal");
 
     // Send the transaction, returns the transaction id for 
     // the first transaction in the group
-    const { txId } = await client.sendRawTransaction(signed).do();
-    txids.push(txId);
+    const createDetails = await client.sendRawTransaction(signed).do();
+    txids.push(createDetails.txId);
 
     // Wait for the transaction to be confirmed.
-    const result = await algosdk.waitForConfirmation(client, txId, 2);
+    const result = await algosdk.waitForConfirmation(client, createDetails.txId, 2);
 
+    const app_id = result["application-index"]
     // Log out the confirmed round
     console.log("Confirmed round: " + result["confirmed-round"]);
-    console.log("app id: " + result["application-index"]);
+    console.log("app id: " + app_id);
+
+    // Call the app
+    const callsp = await client.getTransactionParams().do();
+    const ac_txn = algosdk.makeApplicationCallTxnFromObject({
+      from: acct.addr,
+      appIndex: app_id,
+      appArgs: [accessCode],
+      suggestedParams: callsp,
+    })
+
+    const callDetails = await client.sendRawTransaction(ac_txn.signTxn(acct.sk)).do()
+    txids.push(callDetails.txId)
+
+    const callResult = await algosdk.waitForConfirmation(client, callDetails.txId, 2);
+    console.log("Call confirmed in round: "+callResult["confirmed-round"])
 
   } catch (error) {
     printError(error);
