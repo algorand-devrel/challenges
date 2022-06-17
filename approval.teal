@@ -1,0 +1,39 @@
+#pragma version 6
+
+// Deploy or Call?
+txn ApplicationID
+bz setup
+
+// Check provided argument is the access_code
+txna ApplicationArgs 0
+byte "access_code"
+app_global_get
+==
+assert
+
+// Increment caller counter
+byte "counter"
+dup
+app_global_get
+int 1
++
+app_global_put
+int 1
+return
+
+setup:
+// Contain a single argument (the access_code).
+txn NumAppArgs
+int 1
+==
+assert
+// Store the access_code into global state
+byte "access_code"
+txna ApplicationArgs 0
+app_global_put
+// Store caller counter
+byte "counter"
+int 0
+app_global_put
+int 1
+return
