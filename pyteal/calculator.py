@@ -1,6 +1,7 @@
 from typing import Tuple
 import algosdk.abi  as sdk_abi
 from pyteal import *
+from deploy import *
 
 router = Router(
     name="calculator",
@@ -33,5 +34,13 @@ def div(a: abi.Uint64, b: abi.Uint64, *, output: abi.Uint64):
     pass
 
 
-def build_router()->Tuple[str, str, sdk_abi.Contract]:
-    return router.compile_program(version=6)
+approval, clear, contract = router.compile_program(version=6)
+
+addr = ""
+secret = ""
+gschema = None
+lschema = None
+
+app_id, app_addr = deploy(approval, clear, addr, secret, gschema, lschema)
+
+print("Created: {} with address: {}".format(app_id, app_addr))
