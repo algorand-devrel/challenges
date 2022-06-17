@@ -32,3 +32,5 @@ atc.add_method_call(
 results = atc.execute(client, 2)
 for result in results.abi_results:
     print(f"result of '{result.method.name}' => {result.return_value}")
+
+# TODO: validate(results.tx_ids)
