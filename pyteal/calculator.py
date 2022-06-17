@@ -1,5 +1,5 @@
 from typing import Tuple
-import algosdk.abi  as sdk_abi
+import algosdk.abi as sdk_abi
 from pyteal import *
 from deploy import *
 
@@ -18,19 +18,19 @@ def add(a: abi.Uint64, b: abi.Uint64, *, output: abi.Uint64):
 
 @router.method
 def sub(a: abi.Uint64, b: abi.Uint64, *, output: abi.Uint64):
-    # implement a method to subtract b from a
+    # TODO: implement a method to subtract b from a
     pass
 
 
 @router.method
 def mul(a: abi.Uint64, b: abi.Uint64, *, output: abi.Uint64):
-    # implement a method to multiply a and b
+    # TODO: implement a method to multiply a and b
     pass
 
 
 @router.method
 def div(a: abi.Uint64, b: abi.Uint64, *, output: abi.Uint64):
-    # implement a method to divide b by a
+    # TODO: implement a method to divide b by a
     pass
 
 
