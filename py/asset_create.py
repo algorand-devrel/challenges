@@ -35,10 +35,25 @@ txn = transaction.AssetCreateTxn(
     0, # Total number of units
     0, # Total number of decimals
     False, # Default frozen, leave false
+    reserve=None, # Should be your address
+    clawback=None, # Should be your address
+    freeze=None, # Should be your address
     manager=None, # Should be your address
     asset_name=None, # The name of the asset
     unit_name=None, # The unit name of the asset
     url=None,       # The url of the asset
+)
+txn = transaction.AssetCreateTxn(
+    addr,
+    sp,
+    100,
+    2,
+    False,
+
+    manager=addr,
+    asset_name="Task Asset",
+    url="https://developer.algorand.org",
+    unit_name="tsk",
 )
 
 # Sign the transaction.
