@@ -43,18 +43,6 @@ txn = transaction.AssetCreateTxn(
     unit_name=None, # The unit name of the asset
     url=None,       # The url of the asset
 )
-txn = transaction.AssetCreateTxn(
-    addr,
-    sp,
-    100,
-    2,
-    False,
-
-    manager=addr,
-    asset_name="Task Asset",
-    url="https://developer.algorand.org",
-    unit_name="tsk",
-)
 
 # Sign the transaction.
 # returns a SignedTxn object containing the bytes to be sent to the network
