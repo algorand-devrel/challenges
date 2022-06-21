@@ -1,46 +1,18 @@
-from typing import List, Dict
-from algosdk.v2client.algod import AlgodClient
-from algosdk import encoding
-from algosdk.constants import ASSETCONFIG_TXN 
-import base64
+from typing import List, Dict, cast
+from algosdk.future import transaction
+from algosdk.constants import ASSETCONFIG_TXN
+import util
 
-
-#token = "a" * 64
-#host = "http://localhost:4001"
-
-token = ""
-host = "https://testnet-api.algonode.cloud"
-
-
-
-def get_client():
-    return AlgodClient(token, host)
-
-
-def get_txns(txns: List[str])->List[Dict]:
-    client = get_client()
-    txn_info = [client.pending_transaction_info(txid) for txid in txns]
-    return txn_info
-
-
-# Asset Create 
-def validate_challenge_asset_create(txns: List[Dict], challenge_account_id: str) -> bool:
+# Asset Create
+def validate_challenge_asset_create(
+    txns: List[Dict], challenge_account_id: str
+) -> bool:
     assert len(txns) == 1, "Expected a single transaction"
     assert txns[0]["confirmed-round"] > 0, "Expected confirmed transaction"
 
-    base_txn = txns[0]["txn"]["txn"]
-
-    # TODO: this should be included in the SDK itself
-    base_txn["snd"] = encoding.decode_address(base_txn["snd"])
-    base_txn["apar"]["f"] = encoding.decode_address(base_txn["apar"]["f"])
-    base_txn["apar"]["r"] = encoding.decode_address(base_txn["apar"]["r"])
-    base_txn["apar"]["m"] = encoding.decode_address(base_txn["apar"]["m"])
-    base_txn["apar"]["c"] = encoding.decode_address(base_txn["apar"]["c"])
-    base_txn["gh"] = base64.b64decode(base_txn["gh"])
-
-    txn = encoding.future_msgpack_decode(base_txn)
-
+    txn = util.parse_transaction(txns[0]["txn"]["txn"])
     assert txn.type == ASSETCONFIG_TXN, "Expected an asset config transaction"
+    txn = cast(transaction.AssetConfigTxn, txn)
 
     assert txn.sender == challenge_account_id, "Expected sender to be you"
     assert txn.clawback == challenge_account_id, "Expected clawback to be you"
@@ -56,5 +28,7 @@ def validate_challenge_asset_create(txns: List[Dict], challenge_account_id: str)
 
 
 if __name__ == "__main__":
-    txns = get_txns(["5GOGJRRZDRRHFJNTF2JIBOAZWGZCCTNQMQ75Z3URRX3LNNTPWZJA"])
-    validate_challenge_asset_create(txns, "2ZRSH6HENIK2VA3GM6DPPVXAVIYL4BONBUXEQSBYHVY2CCGVXVGDYBOMEI")
+    txns = util.get_txns(["5GOGJRRZDRRHFJNTF2JIBOAZWGZCCTNQMQ75Z3URRX3LNNTPWZJA"])
+    validate_challenge_asset_create(
+        txns, "2ZRSH6HENIK2VA3GM6DPPVXAVIYL4BONBUXEQSBYHVY2CCGVXVGDYBOMEI"
+    )
