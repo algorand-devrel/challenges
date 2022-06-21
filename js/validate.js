@@ -8,7 +8,11 @@ async function validate(challenge_id, txIds) {
     try {
         await axios.post(validate_path(challenge_id), body)
         return true
-    } catch (error) { console.log("Valdiation Error:" + error); }
+    } catch (error) { 
+      if( error.response ){
+        console.log(error.response.data);
+      }
+    }
     return false
 }
 
