@@ -33,6 +33,12 @@ def parse_transaction(base_txn: Dict[str,Any])->transaction.Transaction:
     if "rcv" in base_txn:
         base_txn["rcv"] = encoding.decode_address(base_txn["rcv"])
 
+    if "asnd" in base_txn:
+        base_txn["asnd"] = encoding.decode_address(base_txn["asnd"])
+
+    if "arcv" in base_txn:
+        base_txn["arcv"] = encoding.decode_address(base_txn["arcv"])
+
     if "apar" in base_txn:
         if "f" in base_txn["apar"]:
             base_txn["apar"]["f"] = encoding.decode_address(base_txn["apar"]["f"])
@@ -45,6 +51,10 @@ def parse_transaction(base_txn: Dict[str,Any])->transaction.Transaction:
 
     if "gh" in base_txn:
         base_txn["gh"] = base64.b64decode(base_txn["gh"])
+
+    
+    if "grp" in base_txn:
+        base_txn["grp"] = base64.b64decode(base_txn["grp"])
 
     return encoding.future_msgpack_decode(base_txn)
 
@@ -70,5 +80,5 @@ def validate_challenge_group_transaction(txns: List[Dict], challenge_account_id:
 
 
 if __name__ == "__main__":
-    txns = get_txns(["5GOGJRRZDRRHFJNTF2JIBOAZWGZCCTNQMQ75Z3URRX3LNNTPWZJA", "5GOGJRRZDRRHFJNTF2JIBOAZWGZCCTNQMQ75Z3URRX3LNNTPWZJA"])
-    validate_challenge_group_transaction(txns, "2ZRSH6HENIK2VA3GM6DPPVXAVIYL4BONBUXEQSBYHVY2CCGVXVGDYBOMEI")
+    txns = get_txns(["SZPWVUU6NH6N2W3QUFK4UAM3ZYO33FFBMQIOEVMYIZLXHREPHRAQ", "N7KHOI2LQFMQJFILT3DHBWLPQG5ANCYW4S66RVNX32LM2SO4VVHA"])
+    validate_challenge_group_transaction(txns, "WGOY3PC5OBW7TVIGZ2AKLDLMKROIVFVRCGVTMOBUPY2A376XG2FQTGW3XM")

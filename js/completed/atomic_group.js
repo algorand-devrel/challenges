@@ -65,6 +65,7 @@ const acct = {
     // Send the transaction, returns the transaction id for 
     // the first transaction in the group
     const results = await atc.execute(client, 2);
+    txids = results.txIDs
 
     console.log("Confirmed in round: ", results.confirmedRound)
   } catch (error) {
