@@ -11,7 +11,7 @@ const token = "";
 const server = "https://testnet-api.algonode.cloud";
 const port = 0;
 const client = new algosdk.Algodv2(token, server, port);
-const txids = [];
+txids = [];
 
 const secretKey =
   "sYgLa2BSnHCYG1tlugubFuoLYjGoPoHiM71JkONCn3zWYyP45GoVqoNmZ4b31uCqML4FzQ0uSEg4PXGhCNW9TA==";
