@@ -1,8 +1,6 @@
 from typing import List, Dict, Any, cast
-from algosdk.v2client.algod import AlgodClient
-from algosdk import encoding
-from algosdk.future import *
-from algosdk.constants import *
+from algosdk.future import transaction
+from algosdk.constants import PAYMENT_TXN, ASSETTRANSFER_TXN
 import util
 
 # Group transaction
