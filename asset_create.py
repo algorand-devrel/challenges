@@ -2,22 +2,17 @@ from algosdk import *
 from algosdk.v2client.algod import AlgodClient
 from algosdk.future import transaction
 
-from utils import validate, print_error
+from utils import validate, print_error, algod_server, algod_token
 
 
-challenge_id = "tbd"
+# DO NOT CHANGE
+challenge_id = "3471206611775576466"
+client = AlgodClient(algod_token, algod_server)
 
-# token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-# server = "http://localhost:4001"
-
-token = ""
-server = "https://testnet-api.algonode.cloud"
-
-client = AlgodClient(token, server)
 txids = []
 
 # TODO: Paste your secret key here
-secretKey = "sYgLa2BSnHCYG1tlugubFuoLYjGoPoHiM71JkONCn3zWYyP45GoVqoNmZ4b31uCqML4FzQ0uSEg4PXGhCNW9TA=="
+secretKey = ""
 
 # Get the address from the secret key
 addr = account.address_from_private_key(secretKey)

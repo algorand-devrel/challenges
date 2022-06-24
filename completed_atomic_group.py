@@ -3,18 +3,12 @@ from algosdk.v2client.algod import AlgodClient
 from algosdk.atomic_transaction_composer import *
 from algosdk.future import transaction
 
-from utils import validate, print_error
+from utils import validate, print_error, faucet_addr, usdc_asa_id, algod_server, algod_token
 
 
-challenge_id = "tbd"
-token = ""
-server = "https://testnet-api.algonode.cloud"
-
-faucet_addr = "GD64YIY3TWGDMCNPP553DZPPR6LDUSFQOIJVFDPPXWEG3FVOJCCDBBHU5A"
-usdc_asa_id = 10458941
-
-
-client = AlgodClient(token, server)
+# DO NOT CHANGE
+challenge_id = "3472343575287161170"
+client = AlgodClient(algod_token, algod_server)
 txids = []
 
 # TODO: Paste your secret key here

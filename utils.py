@@ -3,6 +3,13 @@ import re
 
 ## DO NOT CHANGE
 
+faucet_addr = "GD64YIY3TWGDMCNPP553DZPPR6LDUSFQOIJVFDPPXWEG3FVOJCCDBBHU5A"
+usdc_asa_id = 10458941
+
+
+algod_token = ""
+algod_server = "https://testnet-api.algonode.cloud"
+
 ### Used to validate the challenges
 
 validate_path = (

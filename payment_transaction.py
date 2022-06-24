@@ -2,14 +2,12 @@ from algosdk import *
 from algosdk.v2client.algod import AlgodClient
 from algosdk.future import transaction
 
-from utils import validate, print_error
+from utils import validate, print_error, algod_token, algod_server
 
 
+# DO NOT CHANGE
 challenge_id = "3462886918586161821"
-
-token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-server = "http://localhost:4001"
-client = AlgodClient(token, server)
+client = AlgodClient(algod_token, algod_server)
 txids = []
 
 # TODO: Paste your secret key here
