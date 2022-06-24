@@ -1,9 +1,8 @@
 from algosdk import *
-import base64
 from algosdk.v2client.algod import AlgodClient
 from algosdk.future import transaction
-from validate import validate
-from error_printer import print_error
+
+from utils import validate, print_error
 
 
 challenge_id = "tbd"
@@ -30,18 +29,18 @@ sp = client.suggested_params()
 
 # TODO: Create a payment transaction from you to you using the `acct` variable defined above
 txn = transaction.AssetCreateTxn(
-    None, #Sender, should be your addr
-    sp, # Suggested params we got above
-    0, # Total number of units
-    0, # Total number of decimals
-    False, # Default frozen, leave false
-    reserve=None, # Should be your address
-    clawback=None, # Should be your address
-    freeze=None, # Should be your address
-    manager=None, # Should be your address
-    asset_name=None, # The name of the asset
-    unit_name=None, # The unit name of the asset
-    url=None,       # The url of the asset
+    None,  # Sender, should be your addr
+    sp,  # Suggested params we got above
+    0,  # Total number of units
+    0,  # Total number of decimals
+    False,  # Default frozen, leave false
+    reserve=None,  # Should be your address
+    clawback=None,  # Should be your address
+    freeze=None,  # Should be your address
+    manager=None,  # Should be your address
+    asset_name=None,  # The name of the asset
+    unit_name=None,  # The unit name of the asset
+    url=None,  # The url of the asset
 )
 
 # Sign the transaction.

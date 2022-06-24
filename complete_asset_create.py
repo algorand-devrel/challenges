@@ -1,15 +1,18 @@
 from algosdk import *
-import base64
 from algosdk.v2client.algod import AlgodClient
 from algosdk.future import transaction
-from validate import validate
-from error_printer import print_error
+
+from utils import validate, print_error
 
 
-challenge_id = "3462886918586161821"
+challenge_id = "tbd"
 
-token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-server = "http://localhost:4001"
+# token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+# server = "http://localhost:4001"
+
+token = ""
+server = "https://testnet-api.algonode.cloud"
+
 client = AlgodClient(token, server)
 txids = []
 
@@ -25,11 +28,24 @@ sp = client.suggested_params()
 
 
 # Create a payment transaction from you to you using the `acct` variable defined above
-ptxn = transaction.PaymentTxn(addr, sp, addr, int(1e6))
+txn = transaction.AssetCreateTxn(
+    addr,
+    sp,
+    100,
+    2,
+    False,
+    reserve=addr,
+    clawback=addr,
+    freeze=addr,
+    manager=addr,
+    asset_name="Task Asset",
+    url="https://developer.algorand.org",
+    unit_name="tsk",
+)
 
 # Sign the transaction.
 # returns a SignedTxn object containing the bytes to be sent to the network
-signed = ptxn.sign(secretKey)
+signed = txn.sign(secretKey)
 
 # Send the transaction, returns the transaction id for
 # the first transaction in the group
@@ -47,6 +63,7 @@ try:
 
     # Log out the confirmed round
     print(f"Confirmed round: {result['confirmed-round']}")
+    print(f"Created Asset: {result['asset-index']}")
 
 except error.AlgodHTTPError as err:
     print_error(str(err))

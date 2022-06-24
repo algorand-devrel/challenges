@@ -1,10 +1,9 @@
 from algosdk import *
-import base64
 from algosdk.v2client.algod import AlgodClient
 from algosdk.atomic_transaction_composer import *
 from algosdk.future import transaction
-from validate import validate
-from error_printer import print_error
+
+from utils import validate, print_error
 
 
 challenge_id = "tbd"

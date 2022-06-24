@@ -1,7 +1,27 @@
+import requests
 import re
 
+## DO NOT CHANGE
+
+### Used to validate the challenges
+
+validate_path = (
+    lambda challenge_id: f"https://staging.new-dev-site.algorand.org/api/challenges/{challenge_id}/verify/"
+)
+
+
+def validate(challenge_id, txids):
+    result = requests.post(validate_path(challenge_id), {"transaction_ids": txids})
+    if result.status_code != 200:
+        print(result.json()["fallback_message"])
+        return False
+
+    return True
+
+
+### Used to provide friendly error messages
+
 error_map = {
-    # TODO: maybe with capture groups to slurp out which acct overspent?
     "overspend": {
         "re": re.compile("overspend"),
         "message": "It looks you've tried to submit a transaction where an account did not have enough algos to complete the transaction.",
