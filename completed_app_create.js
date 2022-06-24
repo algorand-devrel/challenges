@@ -1,15 +1,10 @@
-const algosdk = require("algosdk");
 const fs = require("fs");
-const validate = require("../validate");
-const printError = require("../error-printer");
-const { encodeAddress } = require("algosdk");
+
+const algosdk = require("algosdk");
+const {validate, printError, algod} = require("./utils");
 
 const challenge_id = "TBD"
-
-const token = "";
-const server = "https://testnet-api.algonode.cloud";
-const port = 0;
-const client = new algosdk.Algodv2(token, server, port);
+const client = new algosdk.Algodv2(algod.token, algod.server, algod.port);
 const txids = [];
 
 const secretKey =
@@ -21,7 +16,7 @@ const secret = new Uint8Array(Buffer.from(secretKey, "base64"));
 const acct = {
   // The public key is the secret[32:], or the last 32 bytes
   // We encode it to the address which is easier to read and includes a checksum
-  addr: encodeAddress(secret.slice(32)),
+  addr: algosdk.encodeAddress(secret.slice(32)),
   // We need not do anything with the secret
   sk: secret,
 };

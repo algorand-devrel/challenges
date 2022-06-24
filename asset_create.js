@@ -1,14 +1,10 @@
 const algosdk = require("algosdk");
-const validate = require("../validate");
-const printError = require("../error-printer");
 const { encodeAddress } = require("algosdk");
 
-const challenge_id = "TBD"
+const {validate, printError, algod} = require("./utils");
 
-const token = "";
-const server = "https://testnet-api.algonode.cloud";
-const port = 0;
-const client = new algosdk.Algodv2(token, server, port);
+const challenge_id = "3471206611775576466"
+const client = new algosdk.Algodv2(algod.token, algod.server, algod.port);
 const txids = [];
 
 const secretKey =

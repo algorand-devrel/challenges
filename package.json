@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "payment": "node completed/payment_transaction.js",
-    "asset": "node completed/asset_create.js",
-    "group": "node completed/atomic_group.js",
-    "app": "node completed/app_create.js"
+    "payment": "node completed_payment_transaction.js",
+    "asset": "node completed_asset_create.js",
+    "group": "node completed_atomic_group.js",
+    "app": "node completed_app_create.js"
   },
   "author": "",
   "license": "ISC",

@@ -1,14 +1,9 @@
 const algosdk = require("algosdk");
-const validate = require("./validate");
-const printError = require("./error-printer");
+const {validate, printError, algod} = require("./utils");
 
 const challenge_id = "3462886918586161821"
-
-const token =
-  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-const server = "http://localhost";
-const port = 4001;
-const client = new algosdk.Algodv2(token, server, port);
+const client = new algosdk.Algodv2(algod.token, algod.server, algod.port);
+const txids = [];
 
 const sk = ""; // TODO: Add your secret key
 
@@ -18,12 +13,12 @@ const secret = new Uint8Array(Buffer.from(secretKey, "base64"));
 const acct = {
   // The public key is the secret[32:], or the last 32 bytes
   // We encode it to the address which is easier to read and includes a checksum
-  addr: encodeAddress(secret.slice(32)),
+  addr: algosdk.encodeAddress(secret.slice(32)),
   // We need not do anything with the secret
   sk: secret,
 };
 
-const txids = [](async function () {
+(async function () {
   try {
     // Get the suggested parameters from the Algod server. These include current fee levels and suggested first/last rounds.
     const sp = undefined // TODO: use the client initialized above to get the suggested parameters from the algod server
