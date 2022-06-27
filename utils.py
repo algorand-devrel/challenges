@@ -8,7 +8,7 @@ usdc_asa_id = 10458941
 
 
 algod_token = ""
-algod_server = "https://testnet-api.algonode.cloud"
+algod_server = "https://node.testnet.algoexplorerapi.io"
 
 ### Used to validate the challenges
 
