@@ -8,7 +8,8 @@ def validate_challenge_group_transaction(
     txns: List[Dict], challenge_account_id: str
 ) -> bool:
     assert len(txns) == 2, "Expected two transactions"
-    assert txns[0]["confirmed-round"] > 0, "Expected confirmed transaction"
+    assert txns[0].get("confirmed-round", 0) > 0, "Expected first transaction to be confirmed transaction"
+    assert txns[1].get("confirmed-round", 0) > 0, "Expected second transaction to beconfirmed transaction"
 
     txn1 = util.parse_transaction(txns[0]["txn"]["txn"])
     assert txn1.type == PAYMENT_TXN, "Expected a payment transaction"
