@@ -9,7 +9,7 @@ def validate_challenge_transaction_specialist(
     txns: List[Dict], challenge_account_id: str
 ) -> bool:
     assert len(txns) == 1, "Expected a single transaction"
-    assert txns[0]["confirmed-round"] > 0, "Expected confirmed transaction"
+    assert txns[0].get("confirmed-round", 0) > 0, "Expected confirmed transaction"
 
     txn = util.parse_transaction(txns[0]["txn"]["txn"])
     assert txn.type == PAYMENT_TXN, "Expected a payment transaction"
