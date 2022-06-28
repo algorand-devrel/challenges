@@ -31,6 +31,13 @@ error_map = {
             # signing, auth addr, rekey
         ],
     },
+    "exceeds schema":{
+        "re":re.compile("exceeds schema"),
+        "message":"It looks like the schema the application was created with is insufficient for the logic evaluation",
+        "docs":[
+            # ...
+        ]
+    }
 }
 
 
