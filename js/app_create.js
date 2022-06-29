@@ -65,12 +65,17 @@ const acct = {
 
     // Wait for the transaction to be confirmed.
     const result = await algosdk.waitForConfirmation(client, createDetails.txId, 2);
+    console.log(result)
 
     const appId = undefined // TODO: Get the newly created `application-index` from the transaction result
+    // An application gets an account we can send assets to or issue transactions from, the address can be 
+    // derived from the app id
+    const appAddress = getApplicationAddress(appId)
+
     // Log out the confirmed round
     console.log("Confirmed round: " + result["confirmed-round"]);
     console.log("app id: " + appId);
-    console.log("app address: " + getApplicationAddress(appId));
+    console.log("app address: " + appAddress);
     
 
     // Call the app

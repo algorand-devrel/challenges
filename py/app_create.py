@@ -66,9 +66,11 @@ try:
     txids.append(txid)
 
     result = transaction.wait_for_confirmation(client, txid, 2)
-
     print(result)
+
     app_id = None # TODO: Get the newly created `application-index` from the transaction result  
+    # An application gets an account we can send assets to or issue transactions from, the address
+    # can be derived from the app id
     app_address = logic.get_application_address(app_id)
 
     print("Confirmed round: {}".format(result["confirmed-round"]))
