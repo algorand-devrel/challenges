@@ -8,8 +8,8 @@ from error_printer import print_error
 
 challenge_id = "3462886918586161821"
 
-token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-server = "http://localhost:4001"
+token = ""
+server = "https://testnet-api.algonode.cloud"
 client = AlgodClient(token, server)
 txids = []
 

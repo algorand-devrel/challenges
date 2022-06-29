@@ -6,7 +6,7 @@ from validate import validate
 from error_printer import print_error
 
 
-challenge_id = "3462886918586161821"
+challenge_id = "tbd"
 
 token = ""
 server = "https://testnet-api.algonode.cloud"
