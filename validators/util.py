@@ -51,4 +51,10 @@ def parse_transaction(base_txn: Dict[str, Any]) -> transaction.Transaction:
     if "grp" in base_txn:
         base_txn["grp"] = base64.b64decode(base_txn["grp"])
 
+    if "apap" in base_txn:
+        base_txn["apap"] = base64.b64decode(base_txn["apap"])
+
+    if "apsu" in base_txn:
+        base_txn["apsu"] = base64.b64decode(base_txn["apsu"])
+
     return encoding.future_msgpack_decode(base_txn)
