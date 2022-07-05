@@ -1,14 +1,13 @@
 const algosdk = require("algosdk");
 const { encodeAddress } = require("algosdk");
-
 const {validate, printError, algod} = require("./utils");
 
+// DO NOT CHANGE
 const challenge_id = "3471206611775576466"
 const client = new algosdk.Algodv2(algod.token, algod.server, algod.port);
 const txids = [];
 
-const secretKey =
-  "sYgLa2BSnHCYG1tlugubFuoLYjGoPoHiM71JkONCn3zWYyP45GoVqoNmZ4b31uCqML4FzQ0uSEg4PXGhCNW9TA==";
+const secretKey = ""; // TODO: Add your secret key 
 
 // Decode the secretKey into a Uint8Array from base 64
 // This will produce an array of length 64

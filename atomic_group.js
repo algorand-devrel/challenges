@@ -1,15 +1,16 @@
 const algosdk = require("algosdk");
 const {validate, printError, algod} = require("./utils");
 
+// DO NOT CHANGE
 const challenge_id = "3472343575287161170"
+const client = new algosdk.Algodv2(algod.token, algod.server, algod.port);
+let txids = [];
+
+// You'll use these later
 const faucet_addr = "GD64YIY3TWGDMCNPP553DZPPR6LDUSFQOIJVFDPPXWEG3FVOJCCDBBHU5A"
 const usdc_asa_id = 10458941
 
-const client = new algosdk.Algodv2(algod.token, algod.server, algod.port);
-txids = [];
-
-const secretKey =
-  "sYgLa2BSnHCYG1tlugubFuoLYjGoPoHiM71JkONCn3zWYyP45GoVqoNmZ4b31uCqML4FzQ0uSEg4PXGhCNW9TA==";
+const secretKey = ""; // TODO: Add your secret key 
 
 // Decode the secretKey into a Uint8Array from base 64
 // This will produce an array of length 64
@@ -41,7 +42,7 @@ const acct = {
     // Send 1Algo to the faucet address
     const txn1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
       from: undefined, // TODO: replace with your address
-      to: faucet_addr,
+      to: undefined, // TODO: set to the faucet address
       amount: 1e6,
       suggestedParams: sp,
     });
