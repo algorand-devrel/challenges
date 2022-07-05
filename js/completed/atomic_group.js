@@ -1,6 +1,6 @@
 const algosdk = require("algosdk");
-const validate = require("../validate");
-const printError = require("../error-printer");
+const validate = require("./validate");
+const printError = require("./error-printer");
 const { encodeAddress, AtomicTransactionComposer } = require("algosdk");
 
 const challenge_id = "TBD"
