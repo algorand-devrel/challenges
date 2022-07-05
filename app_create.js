@@ -1,13 +1,12 @@
 const algosdk = require("algosdk");
-const fs = require("fs");
 const { encodeAddress, getApplicationAddress } = require("algosdk");
 const {validate, printError, algod} = require("./utils");
-
+const fs = require("fs");
 
 // DO NOT CHANGE
 const challenge_id = "3475012173671627630"
 const client = new algosdk.Algodv2(algod.token, algod.server, algod.port);
-const txids = [];
+let txids = [];
 
 // Read in the source TEAL programs
 const approval = fs.readFileSync("approval.teal");
@@ -63,7 +62,9 @@ const acct = {
     const result = await algosdk.waitForConfirmation(client, createDetails.txId, 2);
     console.log(result)
 
-    const appId = undefined // TODO: Get the newly created `application-index` from the transaction result
+    // https://developer.algorand.org/docs/rest-apis/algod/v2/#pendingtransactionresponse
+    const appId = undefined // TODO: Get the newly created `application-index` from the PendingTransactionResponse 
+    
     // An application gets an account we can send assets to or issue transactions from, the address can be 
     // derived from the app id
     const appAddress = getApplicationAddress(appId)

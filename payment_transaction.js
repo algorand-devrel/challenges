@@ -4,7 +4,7 @@ const {validate, printError, algod} = require("./utils");
 // DO NOT CHANGE
 const challenge_id = "3462886918586161821"
 const client = new algosdk.Algodv2(algod.token, algod.server, algod.port);
-const txids = [];
+let txids = [];
 
 const sk = ""; // TODO: Add your secret key
 
