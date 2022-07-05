@@ -7,7 +7,7 @@ from utils import validate, print_error, algod_token, algod_server
 
 
 # Don't change
-challenge_id = "tbd"
+challenge_id = "3475012173671627630"
 client = AlgodClient(algod_token, algod_server)
 txids = []
 
