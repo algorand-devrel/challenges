@@ -24,11 +24,11 @@ sp = client.suggested_params()
 
 # TODO: Create a payment transaction from you to you using the `acct` variable defined above
 txn = transaction.AssetCreateTxn(
-    None,  # Sender, should be your addr
-    sp,  # Suggested params we got above
-    0,  # Total number of units
-    0,  # Total number of decimals
-    False,  # Default frozen, leave false
+    sender=None,  # Sender, should be your addr
+    sp=sp,  # Suggested params we got above
+    total=0,  # Total number of units
+    decimals=0,  # Total number of decimals
+    default_frozen=False,  # Default frozen, leave false
     reserve=None,  # Should be your address
     clawback=None,  # Should be your address
     freeze=None,  # Should be your address

@@ -3,7 +3,14 @@ from algosdk.v2client.algod import AlgodClient
 from algosdk.atomic_transaction_composer import *
 from algosdk.future import transaction
 
-from utils import validate, print_error, faucet_addr, usdc_asa_id, algod_token, algod_server
+from utils import (
+    validate,
+    print_error,
+    faucet_addr,
+    usdc_asa_id,
+    algod_token,
+    algod_server,
+)
 
 
 # DO NOT CHANGE
@@ -27,12 +34,18 @@ sp = client.suggested_params()
 atc = AtomicTransactionComposer()
 atc.add_transaction(
     TransactionWithSigner(
-        txn=transaction.PaymentTxn(addr, sp, faucet_addr, int(1e6)), signer=signer
+        txn=transaction.PaymentTxn(
+            sender=addr, sp=sp, receiver=faucet_addr, amt=int(1e6)
+        ),
+        signer=signer,
     )
 )
 atc.add_transaction(
     TransactionWithSigner(
-        txn=transaction.AssetTransferTxn(addr, sp, addr, 0, usdc_asa_id), signer=signer
+        txn=transaction.AssetTransferTxn(
+            sender=addr, sp=sp, receiver=addr, amt=0, index=usdc_asa_id
+        ),
+        signer=signer,
     )
 )
 
