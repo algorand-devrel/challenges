@@ -35,15 +35,24 @@ atc = AtomicTransactionComposer()
 atc.add_transaction(
     TransactionWithSigner(
         txn=transaction.PaymentTxn(
-            sender=addr, sp=sp, receiver=faucet_addr, amt=int(1e6)
+            sender=None,  # TODO: set to your address
+            receiver=None,  # TODO: set to the faucet_address we're importing from utils
+            amt=int(1e6),  # 1 algo
+            sp=sp,
         ),
         signer=signer,
     )
 )
+
+# Opt into usdc_asa_id
 atc.add_transaction(
     TransactionWithSigner(
         txn=transaction.AssetTransferTxn(
-            sender=addr, sp=sp, receiver=addr, amt=0, index=usdc_asa_id
+            sender=None,  # TODO: set to your address
+            receiver=None,  # TODO: set to your address
+            index=None,  # TODO: set to the asset id of USDC on testnet (imported from utils)
+            amt=0,
+            sp=sp,
         ),
         signer=signer,
     )

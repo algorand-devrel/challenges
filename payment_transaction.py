@@ -21,12 +21,7 @@ sp = None
 
 # TODO: Create a payment transaction from you to you for 1 Algo
 # hint: From and To should be your `addr` and 1 Algo is 1m microAlgos
-ptxn = transaction.PaymentTxn(
-    sender=None, 
-    sp=sp, 
-    receiver=None, 
-    amt=None
-)
+ptxn = transaction.PaymentTxn(sender=None, sp=sp, receiver=None, amt=None)
 
 
 # TODO: Sign the transaction.

@@ -28,15 +28,15 @@ secretKey = ""
 addr = account.address_from_private_key(secretKey)
 
 try:
-    approval_result = None # TODO: use the client to compile `approval`, the teal source file contents
+    approval_result = None  # TODO: use the client to compile `approval`, the teal source file contents
     # Convert the result of compilation from base64 to bytes
     approval_program = base64.b64decode(approval_result["result"])
 
-
-    clear_result = None # TODO: use the client to compile `clear`, the teal source file contents
+    clear_result = (
+        None  # TODO: use the client to compile `clear`, the teal source file contents
+    )
     # Convert the result of compilation from base64 to bytes
-    clear_program = None # TODO: similar to the above approval program, convert the clear result base64 to bytes 
-
+    clear_program = None  # TODO: similar to the above approval program, convert the clear result base64 to bytes
 
     # TODO: Set the global schema to 1 uint and 1 byteslice
     global_schema = transaction.StateSchema(num_uints=0, num_byte_slices=0)
@@ -45,14 +45,14 @@ try:
 
     sp = client.suggested_params()
     app_create_txn = transaction.ApplicationCreateTxn(
-        sender=None, # TODO: should be your address
+        sender=None,  # TODO: should be your address
         sp=sp,
         on_complete=transaction.OnComplete.NoOpOC,
-        approval_program=None, # TODO: set to the compiled result of the approval program as bytes
-        clear_program=None, # TODO: set to the compiled result of the clear program as bytes
-        global_schema=None, # TODO: set to the global schema we prepared above
-        local_schema=None, # TODO: set to the local schema we prepared above
-        app_args=None, # TODO: this should be set to a list containing app args (the access key)
+        approval_program=None,  # TODO: set to the compiled result of the approval program as bytes
+        clear_program=None,  # TODO: set to the compiled result of the clear program as bytes
+        global_schema=None,  # TODO: set to the global schema we prepared above
+        local_schema=None,  # TODO: set to the local schema we prepared above
+        app_args=None,  # TODO: this should be set to a list containing app args (the access key)
     )
     signed_app_create = app_create_txn.sign(secretKey)
     txid = client.send_transaction(signed_app_create)
@@ -61,7 +61,7 @@ try:
     result = transaction.wait_for_confirmation(client, txid, 2)
 
     # https://developer.algorand.org/docs/rest-apis/algod/v2/#pendingtransactionresponse
-    app_id = None # TODO: Get the newly created `application-index` from the PendingTransactionResponse
+    app_id = None  # TODO: Get the newly created `application-index` from the PendingTransactionResponse
 
     # An application gets an account we can send assets to or issue transactions from, the address
     # can be derived from the app id
@@ -73,11 +73,11 @@ try:
 
     sp = client.suggested_params()
     app_call_txn = transaction.ApplicationCallTxn(
-        sender=None, # TODO: set to your address
-        sp=sp, 
-        on_complete=transaction.OnComplete.NoOpOC,  
+        sender=None,  # TODO: set to your address
+        sp=sp,
+        on_complete=transaction.OnComplete.NoOpOC,
         index=None,  # TODO: Set to the app id we got from the transaction result
-        app_args=None # TODO: set to the same app args array as above 
+        app_args=None,  # TODO: set to the same app args array as above
     )
     signed_app_call_txn = app_call_txn.sign(secretKey)
     txid = client.send_transaction(signed_app_call_txn)
