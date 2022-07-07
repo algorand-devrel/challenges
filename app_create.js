@@ -84,7 +84,7 @@ const acct = {
       suggestedParams: callsp,
     })
     const signedAc = ac_txn.signTxn(acct.sk)
-    const callDetails = await client.sendRawTransaction().do(signedAc)
+    const callDetails = await client.sendRawTransaction(signedAc).do()
     txids.push(callDetails.txId)
     const callResult = await algosdk.waitForConfirmation(client, callDetails.txId, 2);
     console.log("Call confirmed in round: "+callResult["confirmed-round"])
