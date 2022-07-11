@@ -23,19 +23,25 @@ sp = client.suggested_params()
 
 
 # TODO: Create a payment transaction from you to you using the `acct` variable defined above
+# The asset should have a total supply of 1 but have 100 total units
+# The asset should have the name `Task Asset`
 txn = transaction.AssetCreateTxn(
-    sender=None,  # Sender, should be your addr
+    sender=None,  # TODO: Sender, should be your addr
     sp=sp,  # Suggested params we got above
-    total=0,  # Total number of units
-    decimals=0,  # Total number of decimals
+
+    total=0,  # TODO: Total number of units (100)
+    decimals=0,  # TODO: Total number of decimals (2)
+    asset_name=None,  # TODO: The name of the asset (the string 'Task Asset' )
+
+    reserve=None,  # TODO: Should be your address
+    clawback=None,  # TODO: Should be your address
+    freeze=None,  # TODO: Should be your address
+    manager=None,  # TODO: Should be your address
+
+    unit_name=None,  # The unit name of the asset (can leave blank for this task)
+    url=None,  # The url of the asset (can leave blank for this task, for an NFT this might be an IPFS uri)
+
     default_frozen=False,  # Default frozen, leave false
-    reserve=None,  # Should be your address
-    clawback=None,  # Should be your address
-    freeze=None,  # Should be your address
-    manager=None,  # Should be your address
-    asset_name=None,  # The name of the asset
-    unit_name=None,  # The unit name of the asset
-    url=None,  # The url of the asset
 )
 
 # Sign the transaction.
