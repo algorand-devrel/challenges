@@ -31,14 +31,21 @@ const acct = {
     // with its asset id set to 0
     const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({
       // TODO: fill in the transaction parameters to create a new Asset 
-      // with total units of 100 but max supply of 1
-      from:  undefined,     // The from address should be your address
-      manager: undefined,   // The manager address should be your address
-      assetURL: undefined,  // The asset URL should be the string "https://developer.algorand.org"
-      unitName: undefined,  // The unit name should be the string "tsk"
-      assetName: undefined, // The name should be the string "Task Asset"
-      decimals: undefined,  // The decimals should be 2 
-      total: undefined,     // The total should be 100
+      // with total units of 100 but max supply of 1 and with name `Task Asset`
+
+      from:  undefined,     // TODO: The from address should be your address
+      assetName: undefined, // TODO: The name should be the string "Task Asset"
+      total: undefined,     // TODO: The total number of units (should be 100)
+      decimals: undefined,  // TODO: The number of decimals to display (should be 2)
+
+      manager: undefined,   // TODO: The manager address should be your address (should be your address)
+      freeze: undefined,    // TODO: The address that may issue freeze/unfreeze transactions  (shouuld be your address)
+      clawback: undefined,  // TODO: The address that may clawback an asset  (should be your address)
+      reserve: undefined,   // TODO: The account that should be treated as `Reserve` for computing number of tokens in circulation (should be your address)
+
+      unitName: undefined,  // The unit name of the asset (can stay empty) 
+      assetURL: undefined,  // The url of asset (can leave blank for this task, for an NFT this might be an IPFS uri) 
+      defaultFrozen: false, // Whether or not to have the asset frozen on xfer (can leave false)
       suggestedParams: sp,
     });
 
